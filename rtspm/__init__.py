@@ -2,7 +2,7 @@
 
 import logging
 
-from py_rtspm.version import __version__
+from rtspm.version import __version__
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
