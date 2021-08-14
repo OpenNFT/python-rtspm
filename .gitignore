@@ -114,3 +114,4 @@ cython_debug/
 
 # PyCharm
 .idea/
+/src/.vs/
