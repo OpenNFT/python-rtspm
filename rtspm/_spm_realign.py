@@ -118,7 +118,7 @@
 
 import numpy as np
 import pyspm as spm
-from rtspm.spm_matrix import spm_matrix
+from rtspm._spm_matrix import spm_matrix
 from loguru import logger
 
 NFB_TH_ACC = 0.01

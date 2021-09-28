@@ -1,8 +1,8 @@
 import numpy as np
 import utils
 from scipy.io import savemat
-from rtspm.spm_realign import spm_realign
-from rtspm.spm_reslice import spm_reslice
+from rtspm._spm_realign import spm_realign
+from rtspm._spm_reslice import spm_reslice
 
 
 def test_spm(data_path, dcm_image, nii_image_1, p_struct, matlab_result):

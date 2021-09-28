@@ -1,5 +1,5 @@
 import numpy as np
-from rtspm.spm_inv_b_cdf import spm_inv_b_cdf
+from rtspm._spm_inv_b_cdf import spm_inv_b_cdf
 
 
 def spm_inv_t_cdf(f, v):

@@ -1,5 +1,5 @@
 import numpy as np
-from rtspm.spm_matrix import spm_matrix
+from rtspm._spm_matrix import spm_matrix
 
 
 def spm_imatrix(m):
