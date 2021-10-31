@@ -42,6 +42,6 @@ pybind11 = "^2.8.1"
 [build-system]
 requires = [
     "poetry-core>=1.0.0",
-    "pybind11=>=2.7.1"  # currently, this does not work. See: https://github.com/python-poetry/poetry/issues/2789
+    "pybind11>=2.7.1"  # currently, this does not work. See: https://github.com/python-poetry/poetry/issues/2789
 ]
 build-backend = "poetry.core.masonry.api"
