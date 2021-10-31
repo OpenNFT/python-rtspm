@@ -20,6 +20,20 @@ install_requires = [
     'scipy>=1.5.4',
 ]
 
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Science/Research",
+    "Topic :: Software Development :: Libraries",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
 setup_kwargs = {
     'name': 'python-rtspm',
     'version': '0.1.7',
@@ -29,8 +43,10 @@ setup_kwargs = {
     'author_email': 'opennft@gmail.com',
     'packages': packages,
     'package_data': package_data,
-    'install_requires': install_requires,
     'python_requires': python_requires,
+    'install_requires': install_requires,
+    'classifiers': classifiers,
+    'license': 'GPL-3.0',
 }
 
 build(setup_kwargs)
