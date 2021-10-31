@@ -1,105 +1,90 @@
-# Rigid body reslicing of images
-# FORMAT spm_reslice(P,flags)
-#
-# P      - matrix or cell array of filenames {one string per row}
-#          All operations are performed relative to the first image.
-#          ie. Coregistration is to the first image, and resampling
-#          of images is into the space of the first image.
-#
-# flags  - a structure containing various options.  The fields are:
-#
-#         mask   - mask output images (true/false) [default: true]
-#                  To avoid artifactual movement-related variance the
-#                  realigned set of images can be internally masked, within
-#                  the set (i.e. if any image has a zero value at a voxel
-#                  than all images have zero values at that voxel). Zero
-#                  values occur when regions 'outside' the image are moved
-#                  'inside' the image during realignment.
-#
-#         mean   - write mean image (true/false) [default: true]
-#                  The average of all the realigned scans is written to
-#                  an image file with 'mean' prefix.
-#
-#         interp - the B-spline interpolation method [default: 1]
-#                  Non-finite values result in Fourier interpolation. Note
-#                  that Fourier interpolation only works for purely rigid
-#                  body transformations. Voxel sizes must all be identical
-#                  and isotropic.
-#
-#         which  - values of 0, 1 or 2 are allowed [default: 2]
-#                  0   - don't create any resliced images.
-#                        Useful if you only want a mean resliced image.
-#                  1   - don't reslice the first image.
-#                        The first image is not actually moved, so it may
-#                        not be necessary to resample it.
-#                  2   - reslice all the images.
-#                  If which is a 2-element vector, flags.mean will be set
-#                  to flags.which(2).
-#
-#         wrap   - three values of either 0 or 1, representing wrapping in
-#                  each of the dimensions. For fMRI, [1 1 0] would be used.
-#                  For PET, it would be [0 0 0]. [default: [0 0 0]]
-#
-#         prefix - prefix for resliced images [default: 'r']
-#
-# __________________________________________________________________________
-#
-# The spatially realigned images are written to the original subdirectory
-# with the same (prefixed) filename. They are all aligned with the first.
-#
-# Inputs:
-# A series of images conforming to SPM data format (see 'Data Format'). The
-# relative displacement of the images is stored in their header.
-#
-# Outputs:
-# The routine uses information in their headers and writes the realigned
-# image files to the same subdirectory with a prefix.
-# __________________________________________________________________________
-# Copyright (C) 1999-2011 Wellcome Trust Centre for Neuroimaging
-#
-# John Ashburner
-# $Id: spm_reslice.m 5929 2014-03-27 14:47:40Z guillaume $
-# __________________________________________________________________________
-# Adopted for OpenNFT by Yury Koush and John Ashburner.
-# Copyright (C) 2016-2019 OpenNFT.org
-#
-# __________________________________________________________________________
-#
-# The headers of the images contain a 4x4 affine transformation matrix 'M',
-# usually affected by the `realignment' and `coregistration' modules.
-# What these matrices contain is a mapping from the voxel coordinates
-# (x1,x2,x3) (where the first voxel is at coordinate (1,1,1)), to
-# coordinates in millimeters (y1,y2,y3).
-#
-# y1 = m[0][0] * x1 + m[0][1] * x2 + (m[0][2] * x3 + m[0][3])
-# y2 = m[1][0] * x1 + m[1][1] * x2 + (m[1][2] * x3 + m[1][3])
-# y3 = m[2][0] * x1 + m[2][1] * x2 + (m[2][2] * x3 + m[2][3])
-#
-# Assuming that image1 has a transformation matrix M1, and image2 has a
-# transformation matrix M2, the mapping from image1 to image2 is: M2\M1
-# (ie. from the coordinate system of image1 into millimeters, followed
-# by a mapping from millimeters into the space of image2).
-#
-# Several spatial transformations (realignment, coregistration,
-# normalisation) can be combined into a single operation (without the
-# necessity of resampling the images several times).
-# __________________________________________________________________________
-#
-# Refs:
-#
-# Friston KJ, Williams SR, Howard R Frackowiak RSJ and Turner R (1995)
-# Movement-related effect in fMRI time-series.  Mag. Res. Med. 35:346-355
-#
-# W. F. Eddy, M. Fitzgerald and D. C. Noll (1996) Improved Image
-# Registration by Using Fourier Interpolation. Mag. Res. Med. 36(6):923-931
-#
-# R. W. Cox and A. Jesmanowicz (1999)  Real-Time 3D Image Registration
-# for Functional MRI. Mag. Res. Med. 42(6):1014-1018
-# __________________________________________________________________________
+# -*- coding: utf-8 -*-
+
+"""
+SPM Reslice
+
+Rigid body reslicing of images
+FORMAT spm_reslice(P,flags)
+P      - matrix or cell array of filenames {one string per row}
+         All operations are performed relative to the first image.
+         ie. Coregistration is to the first image, and resampling
+         of images is into the space of the first image.
+flags  - a structure containing various options.  The fields are:
+        mask   - mask output images (true/false) [default: true]
+                 To avoid artifactual movement-related variance the
+                 realigned set of images can be internally masked, within
+                 the set (i.e. if any image has a zero value at a voxel
+                 than all images have zero values at that voxel). Zero
+                 values occur when regions 'outside' the image are moved
+                 'inside' the image during realignment.
+        mean   - write mean image (true/false) [default: true]
+                 The average of all the realigned scans is written to
+                 an image file with 'mean' prefix.
+        interp - the B-spline interpolation method [default: 1]
+                 Non-finite values result in Fourier interpolation. Note
+                 that Fourier interpolation only works for purely rigid
+                 body transformations. Voxel sizes must all be identical
+                 and isotropic.
+        which  - values of 0, 1 or 2 are allowed [default: 2]
+                 0   - don't create any resliced images.
+                       Useful if you only want a mean resliced image.
+                 1   - don't reslice the first image.
+                       The first image is not actually moved, so it may
+                       not be necessary to resample it.
+                 2   - reslice all the images.
+                 If which is a 2-element vector, flags.mean will be set
+                 to flags.which(2).
+        wrap   - three values of either 0 or 1, representing wrapping in
+                 each of the dimensions. For fMRI, [1 1 0] would be used.
+                 For PET, it would be [0 0 0]. [default: [0 0 0]]
+        prefix - prefix for resliced images [default: 'r']
+__________________________________________________________________________
+The spatially realigned images are written to the original subdirectory
+with the same (prefixed) filename. They are all aligned with the first.
+Inputs:
+A series of images conforming to SPM data format (see 'Data Format'). The
+relative displacement of the images is stored in their header.
+Outputs:
+The routine uses information in their headers and writes the realigned
+image files to the same subdirectory with a prefix.
+__________________________________________________________________________
+Copyright (C) 1999-2011 Wellcome Trust Centre for Neuroimaging
+John Ashburner
+$Id: spm_reslice.m 5929 2014-03-27 14:47:40Z guillaume $
+__________________________________________________________________________
+Adopted for OpenNFT by Yury Koush and John Ashburner.
+Copyright (C) 2016-2019 OpenNFT.org
+__________________________________________________________________________
+The headers of the images contain a 4x4 affine transformation matrix 'M',
+usually affected by the `realignment' and `coregistration' modules.
+What these matrices contain is a mapping from the voxel coordinates
+(x1,x2,x3) (where the first voxel is at coordinate (1,1,1)), to
+coordinates in millimeters (y1,y2,y3).
+y1 = m[0][0] * x1 + m[0][1] * x2 + (m[0][2] * x3 + m[0][3])
+y2 = m[1][0] * x1 + m[1][1] * x2 + (m[1][2] * x3 + m[1][3])
+y3 = m[2][0] * x1 + m[2][1] * x2 + (m[2][2] * x3 + m[2][3])
+Assuming that image1 has a transformation matrix M1, and image2 has a
+transformation matrix M2, the mapping from image1 to image2 is: M2\M1
+(ie. from the coordinate system of image1 into millimeters, followed
+by a mapping from millimeters into the space of image2).
+Several spatial transformations (realignment, coregistration,
+normalisation) can be combined into a single operation (without the
+necessity of resampling the images several times).
+__________________________________________________________________________
+Refs:
+Friston KJ, Williams SR, Howard R Frackowiak RSJ and Turner R (1995)
+Movement-related effect in fMRI time-series.  Mag. Res. Med. 35:346-355
+W. F. Eddy, M. Fitzgerald and D. C. Noll (1996) Improved Image
+Registration by Using Fourier Interpolation. Mag. Res. Med. 36(6):923-931
+R. W. Cox and A. Jesmanowicz (1999)  Real-Time 3D Image Registration
+for Functional MRI. Mag. Res. Med. 42(6):1014-1018
+__________________________________________________________________________
+"""
 
 import numpy as np
-import pyspm as spm
-from rtspm.errors import SpmError
+
+import _rtspm as spm
+from .errors import RtSpmError
 
 
 def spm_reslice(r, flags):
@@ -133,7 +118,7 @@ def spm_reslice(r, flags):
                 try:
                     tmp_division = np.linalg.solve(r0_mat, ri_mat)
                 except np.linalg.LinAlgError as err:
-                    raise SpmError("R0 and R1 division error in reslice") from err
+                    raise RtSpmError("R0 and R1 division error in reslice") from err
 
                 temp_tmp, y1, y2, y3 = get_mask(np.linalg.inv(tmp_division), x1, x2, x3 + 1, ri_dim, flags['wrap'])
                 tmp += temp_tmp
@@ -172,7 +157,7 @@ def spm_reslice(r, flags):
                 try:
                     tmp_division = np.linalg.solve(r0_mat, ri_mat)
                 except np.linalg.LinAlgError as err:
-                    raise SpmError("R0 and R1 division error in reslice") from err
+                    raise RtSpmError("R0 and R1 division error in reslice") from err
 
                 tmp, y1, y2, y3 = get_mask(np.linalg.inv(tmp_division), x1, x2, x3 + 1, ri_dim, flags['wrap'])
 

@@ -6,14 +6,15 @@
 #include "spm_conv_vol.h"
 #include "spm_slice_vol.h"
 
-PYBIND11_MODULE(pyspm, m) {
+
+PYBIND11_MODULE(_rtspm, m) {
     m.doc() = R"pbdoc(
         Python adaptation of SPM for OpenNFT project
         --------------------------------------------
 
         .. codeauthor:: SPM Toolbox Team, Nikita Davydov and OpenNFT Team
 
-        .. currentmodule:: pyspm
+        .. currentmodule:: rtspm
         .. autosummary::
            :toctree: _generate
 

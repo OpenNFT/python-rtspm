@@ -26,7 +26,7 @@ from setuptools import setup
 from distutils.core import Distribution
 
 
-MODULE_NAME = 'pyspm'
+MODULE_NAME = '_rtspm'
 
 ROOT_PATH = Path(__name__).parent
 SOURCE_DIR = ROOT_PATH / 'src'

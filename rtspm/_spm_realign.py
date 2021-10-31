@@ -1,125 +1,110 @@
-# Estimation of within modality rigid body movement parameters
-# FORMAT P = realign(P,flags)
-#
-# P     - char array of filenames
-#         All operations are performed relative to the first image.
-#         ie. Coregistration is to the first image, and resampling
-#         of images is into the space of the first image.
-#         For multiple sessions, P should be a cell array, where each
-#         cell should be a matrix of filenames.
-#
-# flags - a structure containing various options.  The fields are:
-#         quality  - Quality versus speed trade-off.  Highest quality (1)
-#                    gives most precise results, whereas lower qualities
-#                    gives faster realignment.
-#                    The idea is that some voxels contribute little to
-#                    the estimation of the realignment parameters.
-#                    This parameter is involved in selecting the number
-#                    of voxels that are used.
-#
-#         fwhm     - The FWHM of the Gaussian smoothing kernel (mm) applied
-#                    to the images before estimating the realignment
-#                    parameters.
-#
-#         sep      - the default separation (mm) to sample the images.
-#
-#         rtm      - Register to mean.  If field exists then a two pass
-#                    procedure is to be used in order to register the
-#                    images to the mean of the images after the first
-#                    realignment.
-#
-#         wrap     - Directions in the volume whose values should wrap
-#                    around in. For example, in MRI scans, the images wrap
-#                    around in the phase encode direction, so (e.g.) the
-#                    subject's nose may poke into the back of the subject's
-#                    head.
-#
-#         PW       -  a filename of a weighting image (reciprocal of
-#                    standard deviation).  If field does not exist, then
-#                    no weighting is done.
-#
-#         interp   - B-spline degree used for interpolation
-#
-#         graphics - display coregistration outputs
-#                    default: ~spm('CmdLine')
-# __________________________________________________________________________
-#
-# If no output argument, then an updated voxel to world matrix is written
-# to the headers of the images (a .mat file is created for 4D images).
-# The details of the transformation are displayed in the results window as
-# plots of translation and rotation.
-# A set of realignment parameters are saved for each session, named:
-# rp_*.txt.
-# __________________________________________________________________________
-#
-# Voxel to world mapping:
-#
-# These are simply 4x4 affine transformation matrices represented in the
-# NIFTI headers (see http://nifti.nimh.nih.gov/nifti-1 ).
-# These are normally modified by the `realignment' and `coregistration'
-# modules.  What these matrices represent is a mapping from the voxel
-# coordinates (x1,x2,x3) (where the first voxel is at coordinate (1,1,1)),
-# to coordinates in millimeters (y1,y2,y3).
-#
-# y1 = m[0, 0] * x1 + m[0, 1] * x2 + m[0, 2] * x3 + m[0, 3]
-# y2 = m[1, 0] * x1 + m[1, 1] * x2 + m[1, 2] * x3 + m[1, 3]
-# y3 = m[2, 0] * x1 + m[2, 1] * x2 + m[2, 2] * x3 + m[2, 3]
-#
-# Assuming that image1 has a transformation matrix M1, and image2 has a
-# transformation matrix M2, the mapping from image1 to image2 is: M2\M1
-# (ie. from the coordinate system of image1 into millimeters, followed
-# by a mapping from millimeters into the space of image2).
-#
-# These matrices allow several realignment or coregistration steps to be
-# combined into a single operation (without the necessity of resampling the
-# images several times).
-# __________________________________________________________________________
-#
-# Reference:
-#
-# Friston KJ, Ashburner J, Frith CD, Poline J-B, Heather JD & Frackowiak
-# RSJ (1995) Spatial registration and normalization of images Hum. Brain
-# Map. 2:165-189
-# __________________________________________________________________________
-# Copyright (C) 1994-2013 Wellcome Trust Centre for Neuroimaging
-#
-# John Ashburner
-# $Id: spm_realign.m 6070 2014-06-26 20:53:39Z guillaume $
-#
-# SVNid = '$Rev: 6070 $';
-#
-# P  - a vector of volumes (see spm_vol)
-# --------------------------------------------------------------------------
-# P(i).mat is modified to reflect the modified position of the image i.
-# The scaling (and offset) parameters are also set to contain the
-# optimum scaling required to match the images.
-# __________________________________________________________________________
-#
-# Adopted for OpenNFT by Yury Koush and John Ashburner.
-# Copyright (C) 2016-2019 OpenNFT.org
-#
-#
-# Real-time computational modifications.
-# Note, to speed up the computations,
-# 'Coef' are transferred to the spm_reslice_rt, whcih implies
-# 1) that exactly the same step in reslice is disabled, and
-# 2) that interpolation specified in realign will be 'used'
-# by default for the same step of Coef estimation during reslice
-# (see smooth_vol() occurences).
-# We recommend using the same interpolation for real-time adaptations of
-# the realign and reslice functions.
-#
-# If flag is set to false, the SPM standard realignment and reslicing could
-# be reproduced with the high precision. This results in longer ~3-7 sec
-# processing of the first volume and a significant reduction of volume
-# preprocessing time on each iteration. Relatively long processing of the
-# first volume may require a longer first baseline block or alternative
-# solutions when higher preprocessing speed is required, e.g. TR = 500ms.
+# -*- coding: utf-8 -*-
+
+"""
+SPM Realign
+
+Estimation of within modality rigid body movement parameters
+FORMAT P = realign(P,flags)
+P     - char array of filenames
+        All operations are performed relative to the first image.
+        ie. Coregistration is to the first image, and resampling
+        of images is into the space of the first image.
+        For multiple sessions, P should be a cell array, where each
+        cell should be a matrix of filenames.
+flags - a structure containing various options.  The fields are:
+        quality  - Quality versus speed trade-off.  Highest quality (1)
+                   gives most precise results, whereas lower qualities
+                   gives faster realignment.
+                   The idea is that some voxels contribute little to
+                   the estimation of the realignment parameters.
+                   This parameter is involved in selecting the number
+                   of voxels that are used.
+        fwhm     - The FWHM of the Gaussian smoothing kernel (mm) applied
+                   to the images before estimating the realignment
+                   parameters.
+        sep      - the default separation (mm) to sample the images.
+        rtm      - Register to mean.  If field exists then a two pass
+                   procedure is to be used in order to register the
+                   images to the mean of the images after the first
+                   realignment.
+        wrap     - Directions in the volume whose values should wrap
+                   around in. For example, in MRI scans, the images wrap
+                   around in the phase encode direction, so (e.g.) the
+                   subject's nose may poke into the back of the subject's
+                   head.
+        PW       -  a filename of a weighting image (reciprocal of
+                   standard deviation).  If field does not exist, then
+                   no weighting is done.
+        interp   - B-spline degree used for interpolation
+        graphics - display coregistration outputs
+                   default: ~spm('CmdLine')
+__________________________________________________________________________
+If no output argument, then an updated voxel to world matrix is written
+to the headers of the images (a .mat file is created for 4D images).
+The details of the transformation are displayed in the results window as
+plots of translation and rotation.
+A set of realignment parameters are saved for each session, named:
+rp_*.txt.
+__________________________________________________________________________
+Voxel to world mapping:
+These are simply 4x4 affine transformation matrices represented in the
+NIFTI headers (see http://nifti.nimh.nih.gov/nifti-1 ).
+These are normally modified by the `realignment' and `coregistration'
+modules.  What these matrices represent is a mapping from the voxel
+coordinates (x1,x2,x3) (where the first voxel is at coordinate (1,1,1)),
+to coordinates in millimeters (y1,y2,y3).
+y1 = m[0, 0] * x1 + m[0, 1] * x2 + m[0, 2] * x3 + m[0, 3]
+y2 = m[1, 0] * x1 + m[1, 1] * x2 + m[1, 2] * x3 + m[1, 3]
+y3 = m[2, 0] * x1 + m[2, 1] * x2 + m[2, 2] * x3 + m[2, 3]
+Assuming that image1 has a transformation matrix M1, and image2 has a
+transformation matrix M2, the mapping from image1 to image2 is: M2\M1
+(ie. from the coordinate system of image1 into millimeters, followed
+by a mapping from millimeters into the space of image2).
+These matrices allow several realignment or coregistration steps to be
+combined into a single operation (without the necessity of resampling the
+images several times).
+__________________________________________________________________________
+Reference:
+Friston KJ, Ashburner J, Frith CD, Poline J-B, Heather JD & Frackowiak
+RSJ (1995) Spatial registration and normalization of images Hum. Brain
+Map. 2:165-189
+__________________________________________________________________________
+Copyright (C) 1994-2013 Wellcome Trust Centre for Neuroimaging
+John Ashburner
+$Id: spm_realign.m 6070 2014-06-26 20:53:39Z guillaume $
+SVNid = '$Rev: 6070 $';
+P  - a vector of volumes (see spm_vol)
+--------------------------------------------------------------------------
+P(i).mat is modified to reflect the modified position of the image i.
+The scaling (and offset) parameters are also set to contain the
+optimum scaling required to match the images.
+__________________________________________________________________________
+Adopted for OpenNFT by Yury Koush and John Ashburner.
+Copyright (C) 2016-2019 OpenNFT.org
+Real-time computational modifications.
+Note, to speed up the computations,
+'Coef' are transferred to the spm_reslice_rt, whcih implies
+1) that exactly the same step in reslice is disabled, and
+2) that interpolation specified in realign will be 'used'
+by default for the same step of Coef estimation during reslice
+(see smooth_vol() occurences).
+We recommend using the same interpolation for real-time adaptations of
+the realign and reslice functions.
+
+If flag is set to false, the SPM standard realignment and reslicing could
+be reproduced with the high precision. This results in longer ~3-7 sec
+processing of the first volume and a significant reduction of volume
+preprocessing time on each iteration. Relatively long processing of the
+first volume may require a longer first baseline block or alternative
+solutions when higher preprocessing speed is required, e.g. TR = 500ms.
+"""
 
 import numpy as np
-import pyspm as spm
-from rtspm._spm_matrix import spm_matrix
-from loguru import logger
+
+import _rtspm as spm
+from ._spm_matrix import spm_matrix
+from .logging import logger
+
 
 NFB_TH_ACC = 0.01
 NFB_NR_ITER = 10
@@ -204,7 +189,7 @@ def spm_realign(r, flags, ind_vol, ind_first_vol, a0, x1, x2, x3, deg, b):
 
         if msk.size < MASK_THRESHOLD:
             logger.error('There is not enough overlap in '
-                         'the images to obtain a solution. Offending image: "{}"', r[1].name)
+                         'the images to obtain a solution. Offending image: "%s"', r[1].name)
 
         f = spm.bsplins(v, y1[msk], y2[msk], y3[msk], deg)
 

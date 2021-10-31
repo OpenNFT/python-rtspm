@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import numpy as np
-from rtspm._spm_matrix import spm_matrix
+
+from ._spm_matrix import spm_matrix
 
 
 def spm_imatrix(m):

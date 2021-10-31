@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+
 import numpy as np
-import pyspm as spm
 from scipy.special import erf
+
+import _rtspm as spm
 
 
 def spm_smooth(input_vol, kernel):

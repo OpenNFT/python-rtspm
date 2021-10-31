@@ -1,15 +1,4 @@
 [[package]]
-name = "aiocontextvars"
-version = "0.2.2"
-description = "Asyncio support for PEP-567 contextvars backport."
-category = "main"
-optional = false
-python-versions = ">=3.5"
-
-[package.dependencies]
-contextvars = {version = "2.4", markers = "python_version < \"3.7\""}
-
-[[package]]
 name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
@@ -35,34 +24,9 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 name = "colorama"
 version = "0.4.4"
 description = "Cross-platform colored terminal text."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[[package]]
-name = "contextvars"
-version = "2.4"
-description = "PEP 567 Backport"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-immutables = ">=0.9"
-
-[[package]]
-name = "immutables"
-version = "0.16"
-description = "Immutable Collections"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-typing-extensions = {version = ">=3.7.4.3", markers = "python_version < \"3.8\""}
-
-[package.extras]
-test = ["flake8 (>=3.8.4,<3.9.0)", "pycodestyle (>=2.6.0,<2.7.0)", "mypy (>=0.910)", "pytest (>=6.2.4,<6.3.0)"]
 
 [[package]]
 name = "importlib-metadata"
@@ -90,20 +54,27 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "loguru"
-version = "0.5.3"
-description = "Python logging made (stupidly) simple"
-category = "main"
+name = "nibabel"
+version = "3.2.1"
+description = "Access a multitude of neuroimaging data formats"
+category = "dev"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
-aiocontextvars = {version = ">=0.2.0", markers = "python_version < \"3.7\""}
-colorama = {version = ">=0.3.4", markers = "sys_platform == \"win32\""}
-win32-setctime = {version = ">=1.0.0", markers = "sys_platform == \"win32\""}
+numpy = ">=1.14"
+packaging = ">=14.3"
 
 [package.extras]
-dev = ["codecov (>=2.0.15)", "colorama (>=0.3.4)", "flake8 (>=3.7.7)", "tox (>=3.9.0)", "tox-travis (>=0.12)", "pytest (>=4.6.2)", "pytest-cov (>=2.7.1)", "Sphinx (>=2.2.1)", "sphinx-autobuild (>=0.7.1)", "sphinx-rtd-theme (>=0.4.3)", "black (>=19.10b0)", "isort (>=5.1.1)"]
+all = ["pydicom (>=0.9.9)", "pillow", "gitpython", "twine", "matplotlib (>=1.5.3)", "numpydoc", "sphinx (>=0.3,<3)", "texext", "h5py", "scipy", "flake8", "coverage", "pytest (!=5.3.4)", "pytest-cov", "pytest-doctestplus"]
+dev = ["gitpython", "twine"]
+dicom = ["pydicom (>=0.9.9)"]
+dicomfs = ["pydicom (>=0.9.9)", "pillow"]
+doc = ["matplotlib (>=1.5.3)", "numpydoc", "sphinx (>=0.3,<3)", "texext"]
+minc2 = ["h5py"]
+spm = ["scipy"]
+style = ["flake8"]
+test = ["coverage", "pytest (!=5.3.4)", "pytest-cov", "pytest-doctestplus"]
 
 [[package]]
 name = "numpy"
@@ -149,14 +120,22 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pybind11"
-version = "2.7.1"
+version = "2.8.1"
 description = "Seamless operability between C++11 and Python"
 category = "dev"
 optional = false
 python-versions = "!=3.0,!=3.1,!=3.2,!=3.3,!=3.4,>=2.7"
 
 [package.extras]
-global = ["pybind11-global (==2.7.1)"]
+global = ["pybind11-global (==2.8.1)"]
+
+[[package]]
+name = "pydicom"
+version = "2.2.2"
+description = "Pure python package for DICOM medical file reading and writing"
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
 
 [[package]]
 name = "pyparsing"
@@ -216,17 +195,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "win32-setctime"
-version = "1.0.3"
-description = "A small Python utility to set file creation time on Windows"
-category = "main"
-optional = false
-python-versions = ">=3.5"
-
-[package.extras]
-dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
-
-[[package]]
 name = "zipp"
 version = "3.5.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -241,13 +209,9 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.1,<4"
-content-hash = "074a425f1c26a1004a389ce1690c48ab1aa7207bd5339ad2a5ca9e413781e464"
+content-hash = "71aeb85669b3642f1dfd8940832799bc883ee61732f520202b09fbaf0ca2eea1"
 
 [metadata.files]
-aiocontextvars = [
-    {file = "aiocontextvars-0.2.2-py2.py3-none-any.whl", hash = "sha256:885daf8261818767d8f7cbd79f9d4482d118f024b6586ef6e67980236a27bfa3"},
-    {file = "aiocontextvars-0.2.2.tar.gz", hash = "sha256:f027372dc48641f683c559f247bd84962becaacdc9ba711d583c3871fb5652aa"},
-]
 atomicwrites = [
     {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
     {file = "atomicwrites-1.4.0.tar.gz", hash = "sha256:ae70396ad1a434f9c7046fd2dd196fc04b12f9e91ffb859164193be8b6168a7a"},
@@ -260,38 +224,6 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
-contextvars = [
-    {file = "contextvars-2.4.tar.gz", hash = "sha256:f38c908aaa59c14335eeea12abea5f443646216c4e29380d7bf34d2018e2c39e"},
-]
-immutables = [
-    {file = "immutables-0.16-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:acbfa79d44228d96296279068441f980dc63dbed52522d9227ff9f4d96c6627e"},
-    {file = "immutables-0.16-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:29c9ed003eacb92e630ef200e31f47236c2139b39476894f7963b32bd39bafa3"},
-    {file = "immutables-0.16-cp36-cp36m-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:0a396314b9024fa55bf83a27813fd76cf9f27dce51f53b0f19b51de035146251"},
-    {file = "immutables-0.16-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:4a2a71678348fb95b13ca108d447f559a754c41b47bd1e7e4fb23974e735682d"},
-    {file = "immutables-0.16-cp36-cp36m-win32.whl", hash = "sha256:064001638ab5d36f6aa05b6101446f4a5793fb71e522bc81b8fc65a1894266ff"},
-    {file = "immutables-0.16-cp36-cp36m-win_amd64.whl", hash = "sha256:1de393f1b188740ca7b38f946f2bbc7edf3910d2048f03bbb8d01f17a038d67c"},
-    {file = "immutables-0.16-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:fcf678a3074613119385a02a07c469ec5130559f5ea843c85a0840c80b5b71c6"},
-    {file = "immutables-0.16-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a307eb0984eb43e815dcacea3ac50c11d00a936ecf694c46991cd5a23bcb0ec0"},
-    {file = "immutables-0.16-cp37-cp37m-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:7a58825ff2254e2612c5a932174398a4ea8fbddd8a64a02c880cc32ee28b8820"},
-    {file = "immutables-0.16-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:798b095381eb42cf40db6876339e7bed84093e5868018a9e73d8e1f7ab4bb21e"},
-    {file = "immutables-0.16-cp37-cp37m-win32.whl", hash = "sha256:19bdede174847c2ef1292df0f23868ab3918b560febb09fcac6eec621bd4812b"},
-    {file = "immutables-0.16-cp37-cp37m-win_amd64.whl", hash = "sha256:9ccf4c0e3e2e3237012b516c74c49de8872ccdf9129739f7a0b9d7444a8c4862"},
-    {file = "immutables-0.16-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:d59beef203a3765db72b1d0943547425c8318ecf7d64c451fd1e130b653c2fbb"},
-    {file = "immutables-0.16-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:0020aaa4010b136056c20a46ce53204e1407a9e4464246cb2cf95b90808d9161"},
-    {file = "immutables-0.16-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:edd9f67671555af1eb99ad3c7550238487dd7ac0ac5205b40204ed61c9a922ac"},
-    {file = "immutables-0.16-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:298a301f85f307b4c056a0825eb30f060e64d73605e783289f3df37dd762bab8"},
-    {file = "immutables-0.16-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:b779617f5b94486bfd0f22162cd72eb5f2beb0214a14b75fdafb7b2c908ed0cb"},
-    {file = "immutables-0.16-cp38-cp38-win32.whl", hash = "sha256:511c93d8b1bbbf103ff3f1f120c5a68a9866ce03dea6ac406537f93ca9b19139"},
-    {file = "immutables-0.16-cp38-cp38-win_amd64.whl", hash = "sha256:b651b61c1af6cda2ee201450f2ffe048a5959bc88e43e6c312f4c93e69c9e929"},
-    {file = "immutables-0.16-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:aa7bf572ae1e006104c584be70dc634849cf0dc62f42f4ee194774f97e7fd17d"},
-    {file = "immutables-0.16-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:50793a44ba0d228ed8cad4d0925e00dfd62ea32f44ddee8854f8066447272d05"},
-    {file = "immutables-0.16-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:799621dcdcdcbb2516546a40123b87bf88de75fe7459f7bd8144f079ace6ec3e"},
-    {file = "immutables-0.16-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:7bcf52aeb983bd803b7c6106eae1b2d9a0c7ab1241bc6b45e2174ba2b7283031"},
-    {file = "immutables-0.16-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:734c269e82e5f307fb6e17945953b67659d1731e65309787b8f7ba267d1468f2"},
-    {file = "immutables-0.16-cp39-cp39-win32.whl", hash = "sha256:a454d5d3fee4b7cc627345791eb2ca4b27fa3bbb062ccf362ecaaa51679a07ed"},
-    {file = "immutables-0.16-cp39-cp39-win_amd64.whl", hash = "sha256:2505d93395d3f8ae4223e21465994c3bc6952015a38dc4f03cb3e07a2b8d8325"},
-    {file = "immutables-0.16.tar.gz", hash = "sha256:d67e86859598eed0d926562da33325dac7767b7b1eff84e232c22abea19f4360"},
-]
 importlib-metadata = [
     {file = "importlib_metadata-4.8.1-py3-none-any.whl", hash = "sha256:b618b6d2d5ffa2f16add5697cf57a46c76a56229b0ed1c438322e4e95645bd15"},
     {file = "importlib_metadata-4.8.1.tar.gz", hash = "sha256:f284b3e11256ad1e5d03ab86bb2ccd6f5339688ff17a4d797a0fe7df326f23b1"},
@@ -300,9 +232,9 @@ iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
 ]
-loguru = [
-    {file = "loguru-0.5.3-py3-none-any.whl", hash = "sha256:f8087ac396b5ee5f67c963b495d615ebbceac2796379599820e324419d53667c"},
-    {file = "loguru-0.5.3.tar.gz", hash = "sha256:b28e72ac7a98be3d28ad28570299a393dfcd32e5e3f6a353dec94675767b6319"},
+nibabel = [
+    {file = "nibabel-3.2.1-py3-none-any.whl", hash = "sha256:7e26cbf60eae8668785fa970294f05f767cefc5538b9e22aa388a07f62c54ebc"},
+    {file = "nibabel-3.2.1.tar.gz", hash = "sha256:4d2ff9426b740011a1c916b54fc25da9348282e727eaa2ea163f42e00f1fc29e"},
 ]
 numpy = [
     {file = "numpy-1.19.5-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:cc6bd4fd593cb261332568485e20a0712883cf631f6f5e8e86a52caa8b2b50ff"},
@@ -353,8 +285,12 @@ py = [
     {file = "py-1.10.0.tar.gz", hash = "sha256:21b81bda15b66ef5e1a777a21c4dcd9c20ad3efd0b3f817e7a809035269e1bd3"},
 ]
 pybind11 = [
-    {file = "pybind11-2.7.1-py2.py3-none-any.whl", hash = "sha256:34663b2a16e7ac6ae8b77fef13e2b135e9fbc5ec13d2505d34bd35b3a41b9d82"},
-    {file = "pybind11-2.7.1.tar.gz", hash = "sha256:8950aac5e5f4d505f7a0f067c5cb3893dcf098ff29cedfcb4ccf1e9e44d0bd9a"},
+    {file = "pybind11-2.8.1-py2.py3-none-any.whl", hash = "sha256:4ecbc2a0d4d1f3636edd8296705cc164991b704f3389ebcfa52986a0101f913b"},
+    {file = "pybind11-2.8.1.tar.gz", hash = "sha256:2ff4e50f171e3ae12b11c69e6ad49b05aa5e4b7eaa17b8148bee3cb3f0e4284b"},
+]
+pydicom = [
+    {file = "pydicom-2.2.2-py3-none-any.whl", hash = "sha256:6ecb9c6d56a20b2104099b8ef8fe0f3664d797b08a0e0548fe0311b515b32308"},
+    {file = "pydicom-2.2.2.tar.gz", hash = "sha256:f51078da1fe1285431a6f14a5ca0273520391ef28a68b32b9de73cc7f93f38be"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},
@@ -399,10 +335,6 @@ typing-extensions = [
     {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},
     {file = "typing_extensions-3.10.0.2-py3-none-any.whl", hash = "sha256:f1d25edafde516b146ecd0613dabcc61409817af4766fbbcfb8d1ad4ec441a34"},
     {file = "typing_extensions-3.10.0.2.tar.gz", hash = "sha256:49f75d16ff11f1cd258e1b988ccff82a3ca5570217d7ad8c5f48205dd99a677e"},
-]
-win32-setctime = [
-    {file = "win32_setctime-1.0.3-py3-none-any.whl", hash = "sha256:dc925662de0a6eb987f0b01f599c01a8236cb8c62831c22d9cada09ad958243e"},
-    {file = "win32_setctime-1.0.3.tar.gz", hash = "sha256:4e88556c32fdf47f64165a2180ba4552f8bb32c1103a2fafd05723a0bd42bd4b"},
 ]
 zipp = [
     {file = "zipp-3.5.0-py3-none-any.whl", hash = "sha256:957cfda87797e389580cb8b9e3870841ca991e2125350677b2ca83a0e99390a3"},
