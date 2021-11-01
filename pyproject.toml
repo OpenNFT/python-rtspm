@@ -25,6 +25,10 @@ packages = [
     { include = "rtspm" },
 ]
 
+include = [
+    "src/*"
+]
+
 build = "buildext.py"
 
 [tool.poetry.dependencies]
