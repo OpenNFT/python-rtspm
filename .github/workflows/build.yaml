@@ -85,7 +85,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: amd64
-          toolset: 14.XX
+          toolset: 14.2
 
       - name: Build windows Python wheel
         run: python -m pip wheel . --no-deps -w ./dist
