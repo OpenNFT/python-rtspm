@@ -17,9 +17,9 @@
 
 void make_lookup_poly(double coord, int q, int dim, int *d1, double *table, double **ptpend)
 {
-    register int d2, fcoord;
-    register int k, m;
-    register double *tp, *tpend, *p, num, x;
+    int d2, fcoord;
+    int k, m;
+    double *tp, *tpend, *p, num, x;
 
     static int oq = 0, k0, k1;
     static double denom[256];
@@ -118,9 +118,9 @@ void make_lookup_poly(double coord, int q, int dim, int *d1, double *table, doub
 */
 void make_lookup_poly_grad(double coord, int q, int dim, int *d1, double *table, double *dtable, double **ptpend)
 {
-    register int d2, fcoord;
-    register int k, m;
-    register double *tp, *dtp, *tpend, *p, num, dnum, x, dx;
+    int d2, fcoord;
+    int k, m;
+    double *tp, *dtp, *tpend, *p, num, dnum, x, dx;
 
     static int oq = 0, k0, k1;
     static double denom[256];
@@ -241,8 +241,8 @@ void make_lookup_poly_grad(double coord, int q, int dim, int *d1, double *table,
    The function now integrates to unity. */
 void make_lookup_sinc(double coord, int q, int dim, int *d1, double *table, double **ptpend)
 {
-    register int d2, d, fcoord;
-    register double *tp, *tpend, dtmp, sm;
+    int d2, d, fcoord;
+    double *tp, *tpend, dtmp, sm;
     static int oq = 0, k0, k1;
 
     coord --;
@@ -303,8 +303,8 @@ void make_lookup_sinc(double coord, int q, int dim, int *d1, double *table, doub
    The function now integrates to unity. */
 void make_lookup_sinc_grad(double coord, int q, int dim, int *d1, double *table, double *dtable, double **ptpend)
 {
-    register int d2, d, fcoord;
-    register double *tp, *dtp, *tpend, dtmp0, dtmp1, sdtmp,cdtmp, sm, sm1;
+    int d2, d, fcoord;
+    double *tp, *dtp, *tpend, dtmp0, dtmp1, sdtmp,cdtmp, sm, sm1;
     static int oq = 0, k0, k1;
 
     coord --;
