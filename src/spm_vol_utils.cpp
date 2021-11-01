@@ -411,8 +411,8 @@ void RESAMPLE_POLY(int m, IMAGE_DTYPE *vol[], double out[], double x[], double y
                 *tp2 = tabley;
                 while (tp2 <= tp2end)
                 {
-                    register double dat3 = 0.0, *tp3 = tablex;
-                    register IMAGE_DTYPE *dp3 = dp2 + dx1;
+                    double dat3 = 0.0, *tp3 = tablex;
+                    IMAGE_DTYPE *dp3 = dp2 + dx1;
                     while(tp3 <= tp3end)
                         dat3 += GET(*(dp3++)) * *(tp3++);
                     dat2 += dat3 * *(tp2++);
@@ -456,9 +456,9 @@ void RESAMPLE_POLY(int m, IMAGE_DTYPE *vol[], double out[], double x[], double y
 //                double dat2x = 0.0, *dp2 = dtabley, dat2y = 0.0;
 //                while (tp2 <= tp2end)
 //                {
-//                    register IMAGE_DTYPE *d3 = d2 + dx1;
-//                    register double dat3  = 0.0, *tp3 =  tablex;
-//                    register double dat3x = 0.0, *dp3 = dtablex;
+//                    IMAGE_DTYPE *d3 = d2 + dx1;
+//                    double dat3  = 0.0, *tp3 =  tablex;
+//                    double dat3x = 0.0, *dp3 = dtablex;
 //                    while(tp3 <= tp3end)
 //                    {
 //                        dat3x += GET(*(d3  )) * *(dp3++);
@@ -645,8 +645,8 @@ int SLICE_POLY(double mat[], double image[], int xdim1, int ydim1, IMAGE_DTYPE *
                     *tp2 = tabley;
                     while (tp2 <= tp2end)
                     {
-                        register double dat3 = 0.0, *tp3 = tablex;
-                        register IMAGE_DTYPE *dp3 = dp2 + dx1;
+                        double dat3 = 0.0, *tp3 = tablex;
+                        IMAGE_DTYPE *dp3 = dp2 + dx1;
                         while(tp3 <= tp3end)
                             dat3 += GET(*(dp3++)) * *(tp3++);
                         dat2 += dat3 * *(tp2++);
