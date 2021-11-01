@@ -27,6 +27,7 @@ jobs:
           build-requirements: 'pybind11'
 
       - name: Wheels
-        uses: actions/download-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
-          path: /github/workspace/dist
+          name: wheels
+          path: dist/*.whl
