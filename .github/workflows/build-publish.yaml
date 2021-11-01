@@ -99,6 +99,7 @@ jobs:
 
   upload-to-pypi:
     needs: [build-manylinux, build-macos, build-windows]
+    environment: PyPI
     runs-on: ubuntu-latest
 
     steps:
@@ -139,7 +140,4 @@ jobs:
         working-directory: dist
 
       - name: Upload dist/wheels to PyPI
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: twine upload dist/*
