@@ -29,4 +29,4 @@ jobs:
       - name: Wheels
         uses: actions/download-artifact@v2
         with:
-          path: ./dist
+          path: /github/workspace/dist
