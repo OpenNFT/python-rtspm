@@ -1,18 +1,11 @@
 name: build
 
-#on:
-#  push:
-#    branches:
-#      - "!*"
-#    tags:
-#      - "v*"
-
-# ONLY FOR TEST
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - "!*"
+    tags:
+      - "v*"
 
 jobs:
   build-manylinux:
@@ -141,6 +134,12 @@ jobs:
           name: windows-wheels
           path: dist
 
-      - name: Display structure of downloaded files
+      - name: Display dist files to upload to PyPI
         run: ls -R
         working-directory: dist
+
+      - name: Upload dist/wheels to PyPI
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: twine upload dist/*
