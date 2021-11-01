@@ -31,3 +31,32 @@ jobs:
         with:
           name: manylinux-wheels
           path: dist/*manylinux*.whl
+
+  build-macos:
+    runs-on: ${{ matrix.platform }}
+
+    strategy:
+      max-parallel: 8
+      matrix:
+        platform:
+          - macos-latest
+        python-version: [ "3.6", "3.7", "3.8", "3.9" ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: python -m pip install -U pip setuptools
+
+      - name: Build macos Python wheel
+        run: python -m pip wheel . --no-deps -w ./dist
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-wheels
+          path: dist/*.whl
