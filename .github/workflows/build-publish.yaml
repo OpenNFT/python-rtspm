@@ -140,4 +140,7 @@ jobs:
         working-directory: dist
 
       - name: Upload dist/wheels to PyPI
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
         run: twine upload dist/*
