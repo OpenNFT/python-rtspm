@@ -82,7 +82,7 @@ jobs:
         run: python -m pip install -U pip setuptools
 
       - name: Build windows Python wheel
-      - uses: ilammy/msvc-dev-cmd@v1
+        uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: amd64
           toolset: 14.XX
