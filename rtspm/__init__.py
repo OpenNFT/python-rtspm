@@ -13,6 +13,7 @@ __all__ = [
     'spm_smooth',
     'spm_realign',
     'spm_reslice',
+    'spm_matrix',
     'spm_imatrix',
     '__version__',
 ]
