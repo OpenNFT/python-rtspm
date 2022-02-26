@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-rtspm"
-version = "0.2.0"
+version = "0.2.1"
 description = "Python adaptation of SPM functions for real-time fMRI analysis"
 authors = ["OpenNFT Team <opennft@gmail.com>"]
 license = "GPL-3.0"

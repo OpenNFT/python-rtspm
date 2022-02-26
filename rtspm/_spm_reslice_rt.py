@@ -87,7 +87,7 @@ import _rtspm as spm
 from .errors import RtSpmError
 
 
-def spm_reslice(r, flags):
+def spm_reslice_rt(r, flags):
     msk = []
     count = []
     integral = []

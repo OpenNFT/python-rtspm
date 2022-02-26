@@ -113,7 +113,7 @@ SPM_NR_ITER = 64
 MASK_THRESHOLD = 32
 
 
-def spm_realign(r, flags, ind_vol, ind_first_vol, a0, x1, x2, x3, deg, b):
+def spm_realign_rt(r, flags, ind_vol, ind_first_vol, a0, x1, x2, x3, deg, b):
     f_nfb = True
 
     lkp = flags["lkp"]
