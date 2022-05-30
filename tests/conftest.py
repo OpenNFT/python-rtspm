@@ -48,6 +48,42 @@ def p_struct(data_path: Path) -> dict:
 
 
 @pytest.fixture(scope='session')
+def p_cont_struct(data_path: Path) -> dict:
+    fp = str(data_path / 'P_psc_cont.mat')
+    return loadmat(fp, squeeze_me=True)["P"]
+
+
+@pytest.fixture(scope='session')
+def protocols_inds_cont_struct(data_path: Path) -> dict:
+    fp = str(data_path / 'prot_inds_cont.mat')
+    return loadmat(fp, squeeze_me=True)
+
+
+@pytest.fixture(scope='session')
+def spm_cont_struct(data_path: Path) -> dict:
+    fp = str(data_path / 'spm_psc_cont.mat')
+    return loadmat(fp, squeeze_me=True)
+
+
+@pytest.fixture(scope='session')
+def p_int_struct(data_path: Path) -> dict:
+    fp = str(data_path / 'P_psc_int.mat')
+    return loadmat(fp, squeeze_me=True)["P"]
+
+
+@pytest.fixture(scope='session')
+def protocols_inds_int_struct(data_path: Path) -> dict:
+    fp = str(data_path / 'prot_inds_int.mat')
+    return loadmat(fp, squeeze_me=True)
+
+
+@pytest.fixture(scope='session')
+def spm_int_struct(data_path: Path) -> dict:
+    fp = str(data_path / 'spm_psc_int.mat')
+    return loadmat(fp, squeeze_me=True)
+
+
+@pytest.fixture(scope='session')
 def matlab_result(data_path: Path) -> np.array:
     fp = str(data_path / 'reslVol_matlab.mat')
     return loadmat(fp, squeeze_me=True)
