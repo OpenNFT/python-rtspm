@@ -3,21 +3,22 @@ from scipy.special import gammaln
 
 
 def setup_spm(tr, nscan, mean_vol_template, offsets, first_inds, prot_names):
-    spm = {"xY_RT": tr / 1000,
-           "nscan": nscan,
-           "xBF_T": 16,
-           "xBF_T0": 1,
-           "xBF_UNITS": 'scans',
-           "xBF_Volterra": 1,
-           "xBF_name": 'hrf',
-           "xBF_length": 32,
-           "xBF_order": 1,
-           "xBF_dt": tr / 16000,
-           "xX_K_HParam": 128,
-           "sess_C_C": None,
-           "sess_C_name": None,
-           "xM_TH": np.ones((nscan, 1)) * mean_vol_template
-           }
+    spm = {
+        "xY_RT": tr / 1000,
+        "nscan": nscan,
+        "xBF_T": 16,
+        "xBF_T0": 1,
+        "xBF_UNITS": 'scans',
+        "xBF_Volterra": 1,
+        "xBF_name": 'hrf',
+        "xBF_length": 32,
+        "xBF_order": 1,
+        "xBF_dt": tr / 16000,
+        "xX_K_HParam": 128,
+        "sess_C_C": None,
+        "sess_C_name": None,
+        "xM_TH": np.ones((nscan, 1)) * mean_vol_template
+    }
 
     # spm_fmri_ui
 
@@ -112,7 +113,7 @@ def spm_get_ons(u, k, fmri_t, dt, tr):
     for i in range(len(u["name"])):
 
         # input ons is Python indexes, starting from zero
-        ons = u["ons"][i]+1
+        ons = u["ons"][i] + 1
         dur = u["dur"][i]
 
         uu = np.array(ons ** 0, ndmin=2).T
@@ -121,7 +122,7 @@ def spm_get_ons(u, k, fmri_t, dt, tr):
         sf = np.zeros((k * fmri_t + 128, uu.shape[1]))
         ton = np.max(ton, axis=0)
         tof = np.max(tof, axis=0)
-        for j in range(0,len(ton)):
+        for j in range(0, len(ton)):
             if sf.shape[0] > ton[j]:
                 sf[ton[j], :] = sf[ton[j], :] + uu[j, :]
             if sf.shape[0] > tof[j]:
