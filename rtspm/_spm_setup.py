@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 import numpy as np
 from scipy.special import gammaln
 
 
-def setup_spm(tr, nscan, mean_vol_template, offsets, first_inds, prot_names):
+def spm_setup(tr, nscan, mean_vol_template, offsets, first_inds, prot_names):
     spm = {
         "xY_RT": tr / 1000,
         "nscan": nscan,
@@ -20,14 +22,8 @@ def setup_spm(tr, nscan, mean_vol_template, offsets, first_inds, prot_names):
         "xM_TH": np.ones((nscan, 1)) * mean_vol_template
     }
 
-    # spm_fmri_ui
-
-    # spm_fMRI_design
-
     fmri_t = spm["xBF_T"]
     fmri_t0 = spm["xBF_T0"]
-
-    # spm_get_bf
 
     dt = spm["xBF_dt"]
     bf, p = spm_hrf(dt, fmri_t)
@@ -35,7 +31,6 @@ def setup_spm(tr, nscan, mean_vol_template, offsets, first_inds, prot_names):
     spm["xBF_length"] = bf.shape[0] * dt
     spm["xBF_order"] = bf.shape[1]
 
-    # spm_orth does nothing
     spm["xBF_bf"] = bf
     n = spm["nscan"]
 

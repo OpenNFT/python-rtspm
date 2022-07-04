@@ -7,6 +7,7 @@ from ._spm_reslice_rt import spm_reslice_rt
 from ._spm_slice_vol import spm_slice_vol
 from ._spm_matrix import spm_matrix
 from ._spm_imatrix import spm_imatrix
+from ._spm_setup import spm_setup
 from .version import __version__
 
 
@@ -18,5 +19,6 @@ __all__ = [
     'spm_slice_vol',
     'spm_matrix',
     'spm_imatrix',
+    'spm_setup',
     '__version__',
 ]
