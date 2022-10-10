@@ -211,8 +211,9 @@ def spm_realign_rt(r, flags, ind_vol, ind_first_vol, a0, x1, x2, x3, deg, b):
 
         pss = ss
         ss = np.sum(b1 ** 2) / b1.size
-        if ((pss - ss) / pss < th_acc) and (countdown == -1):
-            countdown = 2
+        if pss != np.inf:
+            if ((pss - ss) / pss < th_acc) and (countdown == -1):
+                countdown = 2
         if countdown != -1:
             if countdown == 0:
                 break
