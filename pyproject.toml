@@ -29,19 +29,22 @@ include = [
     "src/*"
 ]
 
-build = "buildext.py"
-
 [tool.poetry.dependencies]
 python = ">=3.8,<3.12"
-importlib-metadata = "^4.8.1"
+importlib-metadata = "^7.0.0"
 numpy = ">=1.19.2"
 scipy = ">=1.5.4"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+setuptools = "^69.0.2"
 pytest = "^6.1.1"
 pydicom = "^2.2.2"
 nibabel = "^3.2.1"
 pybind11 = "^2.8.1"
+
+[tool.poetry.build]
+script = "buildext.py"
+generate-setup-file = true
 
 [build-system]
 requires = [
