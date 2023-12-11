@@ -4,7 +4,8 @@ from scipy.io import savemat
 from rtspm import _spm_setup
 
 
-def test_setup_spm(p_cont_struct, protocols_inds_cont_struct, spm_cont_struct, p_int_struct, protocols_inds_int_struct, spm_int_struct):
+def test_setup_spm(p_cont_struct, protocols_inds_cont_struct, spm_cont_struct,
+                   p_int_struct, protocols_inds_int_struct, spm_int_struct):
 
     tr = p_cont_struct["TR"].item()
     mean_vol_templ = p_cont_struct["meanVolTemplate"].item()
