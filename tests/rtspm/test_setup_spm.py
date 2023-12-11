@@ -14,7 +14,7 @@ def test_setup_spm(p_cont_struct, protocols_inds_cont_struct, spm_cont_struct, p
     first_inds = [protocols_inds_cont_struct["first_nf_inds"]]
     prot_names = [protocols_inds_cont_struct["prot_names"]]
 
-    spm_python = _spm_setup.setup_spm(tr, nscan, mean_vol_templ, offsets, first_inds, prot_names)
+    spm_python = _spm_setup.spm_setup(tr, nscan, mean_vol_templ, offsets, first_inds, prot_names)
 
     spm_matlab_x = spm_cont_struct["x"]
     spm_matlab_x0 = spm_cont_struct["x0"]
@@ -35,7 +35,7 @@ def test_setup_spm(p_cont_struct, protocols_inds_cont_struct, spm_cont_struct, p
     first_inds = protocols_inds_int_struct["first_nf_inds"]
     prot_names = protocols_inds_int_struct["prot_names"]
 
-    spm_python = _spm_setup.setup_spm(tr, nscan, mean_vol_templ, offsets, first_inds, prot_names)
+    spm_python = _spm_setup.spm_setup(tr, nscan, mean_vol_templ, offsets, first_inds, prot_names)
 
     spm_matlab_x = spm_int_struct["x"]
     spm_matlab_x0 = spm_int_struct["x0"]

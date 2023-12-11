@@ -9,7 +9,7 @@ Python adaptation of SPM functions for real-time fMRI analysis
 
 ## Installing
 
-Python 3.6 or above is supported.
+Python 3.8 or above is supported.
 
 ```
 pip install python-rtspm
