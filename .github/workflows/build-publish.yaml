@@ -28,7 +28,7 @@ jobs:
           build-requirements: 'pybind11'
 
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: manylinux-wheels
           path: dist/*manylinux*.whl
@@ -57,7 +57,7 @@ jobs:
         run: python -m pip wheel . --no-deps -w ./dist
 
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: macos-wheels
           path: dist/*.whl
@@ -92,7 +92,7 @@ jobs:
         run: python -m pip wheel . --no-deps -w ./dist
 
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-wheels
           path: dist/*.whl
