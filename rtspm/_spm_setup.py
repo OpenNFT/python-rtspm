@@ -46,9 +46,9 @@ def spm_setup(tr, nscan, mean_vol_template, offsets, first_inds, prot_names):
 
     if x.size > 0:
         x = x[np.array(range(0, n)) * fmri_t + fmri_t0 + 32, :]
+        spm["xX_x"] = np.hstack((x, np.ones((n, 1))))
 
     spm["sess_row"] = np.array(range(0, n), ndmin=2)
-    spm["xX_x"] = np.hstack((x, np.ones((n, 1))))
 
     k = {"h_param": spm["xX_K_HParam"], "row": spm["sess_row"], "RT": spm["xY_RT"]}
 
