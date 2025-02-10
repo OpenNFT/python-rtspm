@@ -149,6 +149,6 @@ jobs:
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
-          password: ${{ pypi-AgEIcHlwaS5vcmcCJDZiZDYyMzVjLTlhZmEtNGRkNy1hNGUxLTg3NzI0OWEyYTc5NwACFFsxLFsicHl0aG9uLXJ0c3BtIl1dAAIsWzIsWyI3YTc2ZjY4MC02YWI4LTQwMGMtOTZlNC0zZjg5N2U0NjQzYjgiXV0AAAYg3Y93_0allcq9doanTV9RtOMbXRVeXQwJOYSWv36Fjx8 }}
+          password: ${{ secrets.PYPI_TOKEN }}
 
         run: twine upload dist/*
