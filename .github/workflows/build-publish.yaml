@@ -146,7 +146,8 @@ jobs:
         working-directory: dist
 
       - name: Upload dist/wheels to PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_TOKEN }}
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+
+        run: twine upload dist/*
