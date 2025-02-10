@@ -150,5 +150,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
-
-        run: twine upload dist/*
