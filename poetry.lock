@@ -12,6 +12,25 @@ files = [
 ]
 
 [[package]]
+name = "importlib-resources"
+version = "6.5.2"
+description = "Read resources from Python packages"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "importlib_resources-6.5.2-py3-none-any.whl", hash = "sha256:789cfdc3ed28c78b67a06acb8126751ced69a3d5f79c095a98298cd8a760ccec"},
+    {file = "importlib_resources-6.5.2.tar.gz", hash = "sha256:185f87adef5bcc288449d98fb4fba07cea78bc036455dd44c5fc4a2fe78fed2c"},
+]
+
+[package.extras]
+check = ["pytest-checkdocs (>=2.4)", "pytest-ruff (>=0.2.1)"]
+cover = ["pytest-cov"]
+doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+enabler = ["pytest-enabler (>=2.2)"]
+test = ["jaraco.test (>=5.4)", "pytest (>=6,!=8.1.*)", "zipp (>=3.17)"]
+type = ["pytest-mypy"]
+
+[[package]]
 name = "iniconfig"
 version = "2.1.0"
 description = "brain-dead simple config-ini parsing"
@@ -24,30 +43,34 @@ files = [
 
 [[package]]
 name = "nibabel"
-version = "3.2.2"
+version = "5.3.2"
 description = "Access a multitude of neuroimaging data formats"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.9"
 files = [
-    {file = "nibabel-3.2.2-py3-none-any.whl", hash = "sha256:7df7a2733461441d3aacc61f36f5e100ec533d43ed09a191293bb4ca5a4f10f6"},
-    {file = "nibabel-3.2.2.tar.gz", hash = "sha256:b0dcc174b30405ce9e8fec1eab3cbbb20f5c5e4920976c08b22e050b7c124f94"},
+    {file = "nibabel-5.3.2-py3-none-any.whl", hash = "sha256:52970a5a8a53b1b55249cba4d9bcfaa8cc57e3e5af35a29d7352237e8680a6f8"},
+    {file = "nibabel-5.3.2.tar.gz", hash = "sha256:0bdca6503b1c784b446c745a4542367de7756cfba0d72143b91f9ffb78be569b"},
 ]
 
 [package.dependencies]
-numpy = ">=1.14"
-packaging = ">=14.3"
-setuptools = "*"
+importlib-resources = {version = ">=5.12", markers = "python_version < \"3.12\""}
+numpy = ">=1.22"
+packaging = ">=20"
+typing-extensions = {version = ">=4.6", markers = "python_version < \"3.13\""}
 
 [package.extras]
-all = ["coverage", "flake8", "gitpython", "h5py", "matplotlib (>=1.5.3)", "numpydoc", "pillow", "pydicom (>=1.0.0)", "pytest (!=5.3.4)", "pytest (<7)", "pytest-cov", "pytest-doctestplus (!=0.9.0)", "scipy", "sphinx (>=0.3,<3)", "texext", "twine"]
-dev = ["gitpython", "twine"]
-dicom = ["pydicom (>=1.0.0)"]
-dicomfs = ["pillow", "pydicom (>=1.0.0)"]
-doc = ["matplotlib (>=1.5.3)", "numpydoc", "sphinx (>=0.3,<3)", "texext"]
+all = ["h5py", "pillow", "pydicom (>=2.3)", "pyzstd (>=0.14.3)", "scipy"]
+dev = ["tox"]
+dicom = ["pydicom (>=2.3)"]
+dicomfs = ["pillow", "pydicom (>=2.3)"]
+doc = ["matplotlib (>=3.5)", "numpydoc", "sphinx", "texext", "tomli"]
+doctest = ["tox"]
 minc2 = ["h5py"]
 spm = ["scipy"]
-style = ["flake8"]
-test = ["coverage", "pytest (!=5.3.4)", "pytest (<7)", "pytest-cov", "pytest-doctestplus (!=0.9.0)"]
+style = ["tox"]
+test = ["coverage (>=7.2)", "pytest", "pytest-cov", "pytest-doctestplus", "pytest-httpserver", "pytest-xdist"]
+typing = ["tox"]
+zstd = ["pyzstd (>=0.14.3)"]
 
 [[package]]
 name = "numpy"
@@ -155,17 +178,21 @@ global = ["pybind11-global (==2.13.6)"]
 
 [[package]]
 name = "pydicom"
-version = "2.4.4"
+version = "3.0.1"
 description = "A pure Python package for reading and writing DICOM data"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 files = [
-    {file = "pydicom-2.4.4-py3-none-any.whl", hash = "sha256:f9f8e19b78525be57aa6384484298833e4d06ac1d6226c79459131ddb0bd7c42"},
-    {file = "pydicom-2.4.4.tar.gz", hash = "sha256:90b4801d851ce65be3df520e16bbfa3d6c767cf2a3a3b1c18f6780e6b670b87a"},
+    {file = "pydicom-3.0.1-py3-none-any.whl", hash = "sha256:db32f78b2641bd7972096b8289111ddab01fb221610de8d7afa835eb938adb41"},
+    {file = "pydicom-3.0.1.tar.gz", hash = "sha256:7b8be344b5b62493c9452ba6f5a299f78f8a6ab79786c729b0613698209603ec"},
 ]
 
 [package.extras]
-docs = ["matplotlib", "numpy", "numpydoc", "pillow", "sphinx", "sphinx-copybutton", "sphinx-gallery", "sphinx_rtd_theme", "sphinxcontrib-napoleon"]
+basic = ["numpy", "types-pydicom"]
+dev = ["black (==24.8.0)", "mypy (==1.11.2)", "pre-commit", "pydicom-data", "pytest", "pytest-cov", "ruff (==0.6.3)", "types-requests"]
+docs = ["matplotlib", "numpy", "numpydoc", "pillow", "sphinx", "sphinx-copybutton", "sphinx-gallery", "sphinx_rtd_theme", "sphinxcontrib-jquery", "sphinxcontrib-napoleon"]
+gpl-license = ["pylibjpeg[libjpeg]"]
+pixeldata = ["numpy", "pillow", "pyjpegls", "pylibjpeg[openjpeg]", "pylibjpeg[rle]", "python-gdcm"]
 
 [[package]]
 name = "pytest"
@@ -270,7 +297,18 @@ enabler = ["pytest-enabler (>=2.2)"]
 test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=0.14)", "jaraco.develop (>=7.21)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.7.2)", "jaraco.test (>=5.5)", "packaging (>=24.2)", "pip (>=19.1)", "pyproject-hooks (!=1.1)", "pytest (>=6,!=8.1.*)", "pytest-home (>=0.5)", "pytest-perf", "pytest-subprocess", "pytest-timeout", "pytest-xdist (>=3)", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel (>=0.44.0)"]
 type = ["importlib_metadata (>=7.0.2)", "jaraco.develop (>=7.21)", "mypy (==1.14.*)", "pytest-mypy"]
 
+[[package]]
+name = "typing-extensions"
+version = "4.12.2"
+description = "Backported and Experimental Type Hints for Python 3.8+"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "typing_extensions-4.12.2-py3-none-any.whl", hash = "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d"},
+    {file = "typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "1d0f97abda9c6f97d2dd7aaa9b2d00995300eaf58c3650cb5e066812a81d86b4"
+content-hash = "65af67644ec39477b63189f637ed7160dc604f5b5ef85e31e1a14e4a8339c9d8"
