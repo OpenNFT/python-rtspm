@@ -35,8 +35,8 @@ scipy = ">=1.5.4"
 [tool.poetry.group.dev.dependencies]
 setuptools = "^77.0.3"
 pytest = "^8.3.5"
-pydicom = "^2.4.4"
-nibabel = "^3.2.1"
+pydicom = "^3.0.1"
+nibabel = "^5.3.2"
 pybind11 = "^2.13.6"
 
 [tool.poetry.build]
