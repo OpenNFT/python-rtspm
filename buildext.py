@@ -9,7 +9,7 @@ build = "buildext.py"
 
 poetry install
 
-Or directly via distutils 'build' command:
+Or directly via setuptools 'build' command:
 
 python buildext.py build
 python buildext.py build --debug  # for debug symbols
@@ -22,8 +22,7 @@ import shutil
 
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 
-from setuptools import setup
-from distutils.core import Distribution
+from setuptools import Distribution, setup
 
 
 MODULE_NAME = '_rtspm'

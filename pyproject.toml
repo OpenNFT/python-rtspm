@@ -30,17 +30,16 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-importlib-metadata = "^7.0.0"
+python = "^3.11"
 numpy = ">=1.19.2"
 scipy = ">=1.5.4"
 
 [tool.poetry.group.dev.dependencies]
-setuptools = "^69.0.2"
-pytest = "^6.1.1"
-pydicom = "^2.2.2"
+setuptools = "^77.0.3"
+pytest = "^8.3.5"
+pydicom = "^2.4.4"
 nibabel = "^3.2.1"
-pybind11 = "^2.8.1"
+pybind11 = "^2.13.6"
 
 [tool.poetry.build]
 script = "buildext.py"
