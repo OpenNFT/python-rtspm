@@ -100,7 +100,7 @@ jobs:
 
   upload-to-pypi:
     needs: [build-manylinux, build-macos, build-windows]
-    environment: PyPI
+    environment: packaging
     runs-on: ubuntu-latest
 
     steps:
