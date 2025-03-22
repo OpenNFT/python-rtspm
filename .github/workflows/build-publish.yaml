@@ -127,13 +127,13 @@ jobs:
       - name: Download macos-wheels
         uses: actions/download-artifact@v4
         with:
-          name: macos-wheels
+          pattern: macos-wheels-*
           path: dist
 
       - name: Download windows-wheels
         uses: actions/download-artifact@v4
         with:
-          name: windows-wheels
+          pattern: windows-wheels-*
           path: dist
 
       - name: Display dist files to upload to PyPI
