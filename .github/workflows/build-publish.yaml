@@ -28,7 +28,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: manylinux-wheels
+          name: wheels-manylinux
           path: dist/*manylinux*.whl
           overwrite: true
 
@@ -58,7 +58,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: "macos-wheels-${{ matrix.python-version }}"
+          name: "wheels-macos-${{ matrix.python-version }}"
           path: dist/*.whl
           overwrite: true
 
@@ -94,7 +94,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: "windows-wheels-${{ matrix.python-version }}"
+          name: "wheels-windows-${{ matrix.python-version }}"
           path: dist/*.whl
           overwrite: true
 
@@ -118,16 +118,10 @@ jobs:
       - name: Build Python sdist
         run: poetry build -f sdist
 
-      - name: Download manylinux wheels
+      - name: Download wheels
         uses: actions/download-artifact@v4
         with:
-          name: "manylinux-wheels"
-          path: dist
-
-      - name: Download all wheels
-        uses: actions/download-artifact@v4
-        with:
-          pattern: "*-wheels-*"
+          pattern: "wheels-*"
           path: dist
           merge-multiple: true
 
@@ -140,4 +134,4 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
 
-        run: twine upload dist/python_rtspm-*
+        run: twine upload dist/*
